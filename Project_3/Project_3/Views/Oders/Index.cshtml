@@ -1,0 +1,28 @@
+﻿@using Project_3.Models;
+@model Project_3.Models.Oder
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="margin-top:14%;text-align:center;margin-bottom:10%">
+    <h2>Thanh toán thành công</h2>
+    <div class="row" style="margin-top:5%">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Index", "Home")">
+                <p style="text-align: center; background-color: aquamarine; font-size: 20px; font-weight: bold; color: black">Xác nhận</p>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a href="@Url.Action("Bill", "Oders", new {p = ViewBag.ListProduct})">
+                <p style="text-align: center; background-color: lavenderblush; font-size: 20px; font-weight: bold; color: black">In hóa đơn</p>
+            </a>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+    </div>

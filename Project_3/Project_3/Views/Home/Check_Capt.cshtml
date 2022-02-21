@@ -1,0 +1,39 @@
+﻿@model Project_3.Models.Captch
+
+@{
+    ViewBag.Title = "Check_Capt";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top:8%;text-align:center;margin-bottom:10%">
+    <p>@ViewBag.capt11</p>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="margin-top:2%;text-align:center;font-size:18px">
+            <h2 style= "margin-bottom: 5%">Xác thực số điện thoại</h2>
+            @using (Html.BeginForm("Check_Capt", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.HiddenFor(model => model.captcha, htmlAttributes: new { @Value = ViewBag.capt1 })
+                @Html.HiddenFor(model => model.idb, htmlAttributes: new { @Value = ViewBag.capt2 })
+                @Html.HiddenFor(model => model.idp, htmlAttributes: new { @Value = ViewBag.capt3 })
+                @Html.HiddenFor(model => model.phone, htmlAttributes: new { @Value = ViewBag.capt4 })
+                <form>
+                    <p style="text-align:left;font-size:16px;color:black">(*)Nhập mã xác thực đã được gửi về email của bạn</p>
+                    <p style="margin-top:1%;text-align:left;font-size:22px;color:black">
+                        <b>Nhập mã xác nhận : </b>
+                        @Html.EditorFor(model => model.captcheck, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.captcheck, "", new { @class = "text-danger" })
+                    </p>
+                    <input type="submit" value="Xác thực" class="btn btn-default" style="font-weight:bold;text-align:center;font-size:20px;color:white;background-color:green;padding:5px;border:solid 0px black;width:100%" />
+                </form>
+            }
+        </div>
+        <div class="col-md-3"></div>
+
+    </div>
+
+
+
+</div>
+

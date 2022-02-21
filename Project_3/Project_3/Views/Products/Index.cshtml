@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Project_3.Models.Product>
+@using Project_3.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    IEnumerable<Categorie> listcate = ViewBag.ListCategory as IEnumerable<Categorie>;
+    IEnumerable<Product> listpro = ViewBag.ListProduct as IEnumerable<Product>;
+}
+@{
+    IEnumerable<Brand> Brandlist = ViewBag.ListBrand as IEnumerable<Brand>;
+}
+<div>
+    <div class="row" style="margin-top:8%;text-align:center;margin-bottom:10%">
+        <div class="col-md-3">
+            <div style="background-color: black; width: 100%; font-weight: bold; color: white; font-size: 20px;padding:10px;margin-bottom:4%">
+               Danh mục dịch vụ
+            </div>
+            @foreach (var item in listcate)
+            {
+                <a href="">
+                    <div style="width:100%">
+                        <p style="padding-left:4%;font-size:20px;font-weight:bold;color:black;width:100%;padding-bottom:2%;border-bottom:solid 1px black">@item.Name</p>
+                    </div>
+                </a>
+            }
+        </div>
+        <div class="col-md-9">
+           
+            <table class="table">
+                <tr>
+                    <th>
+                        Tên dịch vụ
+                    </th>
+                    <th>
+                        Giá bán
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in listpro)
+                {
+                    
+
+                    <tr>
+
+                        <td style="font-size:20px">
+                            @item.Name
+                        </td>
+
+                        <td style="font-size:20px">
+                            @item.Price vnđ
+                        </td>
+
+                        <td>
+                            <div style="font-size:20px">
+                                <a href="@Url.Action("Sendmail", "Home", new {idb = Brandlist.First().Id,idp = item.Id})">Chọn</a>
+                            </div>
+
+                        </td>
+
+                    </tr>
+                }
+            </table>
+
+            
+        </div>
+    </div>
+
+

@@ -1,0 +1,39 @@
+﻿@model Project_3.Models.Oder
+@using Project_3.Models;
+
+@{
+    ViewBag.Title = "Bill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    IEnumerable<Oder> Oderlist = ViewBag.ListOder as IEnumerable<Oder>;
+}
+@{
+    IEnumerable<Product> prolist = ViewBag.ListProduct as IEnumerable<Product>;
+}
+@{
+    IEnumerable<Brand> branlist = ViewBag.ListBrand as IEnumerable<Brand>;
+}
+<div style="margin-top: 10%; text-align: center">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4" style="text-align: left">
+            <h3 style="text-align:center">Hóa đơn</h3>
+            <div style="margin-top:5%;font-size:22px"><b>Số điện thoại nạp tiền : </b>@Oderlist.First().Phone_number</div>
+            <div style="margin-top:5%;font-size:22px"><b>Nhà mạng nạp tiền : </b>@branlist.First().Name</div>
+            <div style="margin-top:5%;font-size:22px"><b>Dịch vụ nạp tiền : </b>@prolist.First().Name</div>
+            <div style="margin-top:5%;font-size:22px"><b>Giá tiền : </b>@prolist.First().Price</div>
+            <div style="margin-top:5%;font-size:22px"><b>Số tài khoản thanh toán : </b>@Oderlist.First().Card_Id</div>
+            <div style="margin-top:5%;font-size:22px"><b>Ngày thanh toán : </b>@Oderlist.First().Create_At</div>
+            <div style="margin-top:5%;font-size:22px"><b>Trạng thái:<i style="color:green"> Đã thanh toán </i></div>
+
+            <a href="@Url.Action("Index", "Home")">
+                <p style="text-align: center; background-color: aquamarine; font-size: 20px; font-weight: bold; color: black;margin-top:5%;margin-bottom:10%">Xác nhận</p>
+            </a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+

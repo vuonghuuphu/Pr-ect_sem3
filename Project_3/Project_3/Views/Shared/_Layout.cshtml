@@ -1,0 +1,108 @@
+﻿
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+    <title>LOANS2GO | Loans HTML Template</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="loans HTML Template">
+    <meta name="keywords" content="loans, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
+    <!-- Google font -->
+    <!-- Stylesheets -->
+    @Styles.Render("~/frontend/css")
+
+</head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="header-section">
+        <a href="index.html" class="site-logo">
+            <img src="~/Content/Temp/img/logo.png" alt="">
+        </a>
+        <nav class="header-nav">
+            <ul class="main-menu">
+                <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                <li><a href="@Url.Action("Index", "Categories")">Nạp tiền</a></li>
+                <li><a href="@Url.Action("About", "Home")">Giới thiệu</a></li>
+                <li><a href="@Url.Action("Contact", "Home")">Chăm sóc khách hàng</a></li>
+                <li><a href="about-us.html">Tài khoản</a></li>
+            </ul>
+            <div class="header-right">
+                <a href="#" class="hr-btn"><i class="flaticon-029-telephone-1"></i>Liên hệ ngay !</a>
+                <div class="hr-btn hr-btn-2">+45 332 65767 42</div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <div class=" body-content">
+
+        @RenderBody()
+        
+    </div>
+    <!-- CTA Section end -->
+    <!-- Feature Section -->
+    <!-- Score Section end -->
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="container">
+            <a href="index.html" class="footer-logo">
+                <img src="img/logo.png" alt="">
+            </a>
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h2>Sơ đồ web</h2>
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Home")">Trang chủ</a></li>
+                            <li><a href="@Url.Action("Index", "Categories")">Nạp tiền</a></li>
+                            <li><a href="@Url.Action("Contact", "Home")">Tài khoản</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h2>Giới thiệu</h2>
+                        <ul>
+                            <li><a href="@Url.Action("About", "Home")">Về chúng tôi</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h2>Trang web tương tự</h2>
+                        <ul>
+                            <li><a href="#">Privacy policy</a></li>
+                            <li><a href="#">Loans2go principles</a></li>
+                            <li><a href="#">Website terms</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="footer-widget">
+                        <h2>Hỗ trợ</h2>
+                        <ul>
+                            <li><a href="#">Thông tin liên hệ</a></li>
+                            <li><a href="#">Chăm sóc khách hàng</a></li>
+                            <li><a href="#">Gửi phản hồi</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section end -->
+    <!--====== Javascripts & Jquery ======-->
+    @Scripts.Render("~/frontend/js")
+
+
+</body>
+</html>
