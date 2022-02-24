@@ -1,0 +1,34 @@
+﻿@using Project_3.Models;
+@{
+    ViewBag.Title = "AccountManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-top-section set-bg" data-setbg="../../Content/Temp/img/page-top-bg/4.jpg">
+    <div class="container">
+        <h2>Quản lí tài khoản</h2>
+        <nav class="site-breadcrumb">
+            <a class="sb-item" href="@Url.Action("Index", "Home")">Trang chủ</a>
+            <span class="sb-item active">Quản lí tài khoản</span>
+        </nav>
+    </div>
+</section>
+<div class="row" style="margin-bottom:5%;margin-top:5%">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-5">
+        <h3 style="margin:4%">Ví của tôi</h3>
+        <p style="font-size:18px;margin-left:5%;margin-bottom:5%"><b>Số dư : </b> @ViewBag.datamoney vnđ</p>
+        <a href="@Url.Action("Create", "account_balance")"><p style="width:70%;font-size:18px;margin-top:5%" type="submit" class="btn btn-success"><b>Nạp tiền vào ví</b></p></a>
+    </div>
+
+    <div class="col-md-5">
+        <h3 style="margin:4%">Thông tin của tôi</h3>
+        <p style="font-size:18px;margin-left:5%"><b>Tên tài khoản : </b>@ViewBag.user</p>
+        <a href=""><p style="width:70%;font-size:18px;margin-top:5%"  class="btn btn-info"><b>Thay đổi mật khẩu</b></p></a>
+        <a href="@Url.Action("Logout", "AuthUser")"><p style="width:70%;font-size:18px;margin-top:2%" class="btn btn-danger"><b>Đăng xuất</b></p></a>
+    </div>
+
+    <div class="col-md-1"></div>
+</div>
+

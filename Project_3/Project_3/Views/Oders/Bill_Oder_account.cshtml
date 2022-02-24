@@ -1,8 +1,7 @@
 ﻿@model Project_3.Models.Oder
 @using Project_3.Models;
-
 @{
-    ViewBag.Title = "Bill";
+    ViewBag.Title = "Bill_Oder_account";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -32,7 +31,6 @@
             <div style="margin-top:5%;font-size:22px"><b>Nhà mạng nạp tiền : </b>@branlist.First().Name</div>
             <div style="margin-top:5%;font-size:22px"><b>Dịch vụ nạp tiền : </b>@prolist.First().Name</div>
             <div style="margin-top:5%;font-size:22px"><b>Giá tiền : </b>@prolist.First().Price</div>
-            <div style="margin-top:5%;font-size:22px"><b>Số tài khoản thanh toán : </b>@Oderlist.First().Card_Id</div>
             <div style="margin-top:5%;font-size:22px"><b>Ngày thanh toán : </b>@Oderlist.First().Create_At</div>
             <div style="margin-top:5%;font-size:22px"><b>Trạng thái:<i style="color:green"> Đã thanh toán </i></div>
 

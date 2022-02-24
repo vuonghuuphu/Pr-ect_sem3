@@ -13,8 +13,14 @@
 @{
     IEnumerable<Brand> Brandlist = ViewBag.ListBrand as IEnumerable<Brand>;
 }
-<div>
-    <div class="row" style="margin-top:8%;text-align:center;margin-bottom:10%">
+<section class="page-top-section set-bg" data-setbg="../../Content/Temp/img/page-top-bg/4.jpg">
+    <div class="container">
+        <h2>Nạp tiền</h2>
+        <nav class="site-breadcrumb">
+        </nav>
+    </div>
+</section>
+    <div class="row" style="margin-top:1%;text-align:center;margin-bottom:10%">
         <div class="col-md-3">
             <div style="background-color: black; width: 100%; font-weight: bold; color: white; font-size: 20px;padding:10px;margin-bottom:4%">
                Danh mục dịch vụ
@@ -45,24 +51,30 @@
                 {
                     
 
-                    <tr>
+            <tr>
 
-                        <td style="font-size:20px">
-                            @item.Name
-                        </td>
+                <td style="font-size:20px">
+                    @item.Name
+                </td>
 
-                        <td style="font-size:20px">
-                            @item.Price vnđ
-                        </td>
+                <td style="font-size:20px">
+                    @item.Price vnđ
+                </td>
 
-                        <td>
-                            <div style="font-size:20px">
-                                <a href="@Url.Action("Sendmail", "Home", new {idb = Brandlist.First().Id,idp = item.Id})">Chọn</a>
-                            </div>
+                <td>
+                    <div style="font-size:20px">
+                        <a href="@Url.Action("Sendmail", "Home", new {idb = Brandlist.First().Id,idp = item.Id})">Nạp trưc tiếp </a>
+                    </div>
 
-                        </td>
+                </td>
+                <td>
+                    <div style="font-size:20px">
+                        <a href="@Url.Action("Oder_account", "Oders", new {br = Brandlist.First().Id, pro = item.Id})">Nạp từ ví </a>
+                    </div>
 
-                    </tr>
+                </td>
+
+            </tr>
                 }
             </table>
 

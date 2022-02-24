@@ -331,6 +331,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\account_balanceController.cs" />
+    <Compile Include="Controllers\AuthUserController.cs" />
     <Compile Include="Controllers\BanksController.cs" />
     <Compile Include="Controllers\BrandsController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
@@ -340,6 +342,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\account_balance.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Captch.cs" />
@@ -347,8 +350,10 @@
     <Compile Include="Models\Datacontex.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\feedback.cs" />
+    <Compile Include="Models\Login.cs" />
     <Compile Include="Models\Oder.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -467,6 +472,17 @@
     <Content Include="Views\Home\Sendmail.cshtml" />
     <Content Include="Views\Home\Check_Capt.cshtml" />
     <Content Include="Views\Oders\Bill.cshtml" />
+    <Content Include="Views\AuthUser\Login.cshtml" />
+    <Content Include="Views\Shared\LayoutLogin.cshtml" />
+    <Content Include="Views\AuthUser\Register.cshtml" />
+    <Content Include="Views\AuthUser\AccountManagement.cshtml" />
+    <Content Include="Views\account_balance\Create.cshtml" />
+    <Content Include="Views\account_balance\Delete.cshtml" />
+    <Content Include="Views\account_balance\Details.cshtml" />
+    <Content Include="Views\account_balance\Edit.cshtml" />
+    <Content Include="Views\account_balance\Index.cshtml" />
+    <Content Include="Views\Oders\Oder_account.cshtml" />
+    <Content Include="Views\Oders\Bill_Oder_account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,5 +22,9 @@ namespace Project_3.Models
         public System.Data.Entity.DbSet<Project_3.Models.feedback> feedbacks { get; set; }
 
         public System.Data.Entity.DbSet<Project_3.Models.Categorie> categories { get; set; }
+
+        public System.Data.Entity.DbSet<Project_3.Models.account_balance> account_Balances { get; set; }
+
+        public System.Data.Entity.DbSet<Project_3.Models.User> Users { get; set; }
     }
 }
