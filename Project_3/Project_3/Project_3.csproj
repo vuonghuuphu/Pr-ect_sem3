@@ -348,6 +348,7 @@
     <Compile Include="Models\Captch.cs" />
     <Compile Include="Models\Categorie.cs" />
     <Compile Include="Models\Datacontex.cs" />
+    <Compile Include="Models\Day.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\feedback.cs" />
     <Compile Include="Models\Login.cs" />
@@ -483,6 +484,7 @@
     <Content Include="Views\account_balance\Index.cshtml" />
     <Content Include="Views\Oders\Oder_account.cshtml" />
     <Content Include="Views\Oders\Bill_Oder_account.cshtml" />
+    <Content Include="Views\Oders\oder_admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
