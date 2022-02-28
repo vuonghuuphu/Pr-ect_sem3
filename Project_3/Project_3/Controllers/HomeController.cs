@@ -84,11 +84,22 @@ namespace Project_3.Controllers
                     @ViewBag.Message = capt;
                 }
             }
-                return RedirectToAction("Check_Capt", "Home", new { c = capt,ca = model.idb, pro = model.idp , pho = model.phone });
+            HttpCookie cookie = new HttpCookie("Captcha");
+            cookie.Values["captcha"] = capt;
+            cookie.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Add(cookie);
+            return RedirectToAction("Check_Capt", "Home", new {ca = model.idb, pro = model.idp , pho = model.phone });
         }
 
-        public ActionResult Check_Capt(int? c , int? ca , int? pro , int ?pho) {
-            ViewBag.capt1 = c;
+        public ActionResult Check_Capt( int? ca , int? pro , int ?pho) {
+
+            HttpCookie cookie = Request.Cookies["Captcha"];
+
+            if ((cookie.Values["captcha"] != null) && (cookie.Values["captcha"] != ""))
+            {
+                ViewBag.capt1 = cookie.Values["captcha"];
+            }
+
             ViewBag.capt2 = ca;
             ViewBag.capt3 = pro;
             ViewBag.capt4 = pho;
@@ -97,13 +108,16 @@ namespace Project_3.Controllers
         [HttpPost]
         public ActionResult Check_Capt(Captch model)
         {
+            if (model.captcheck == null) {
+                return RedirectToAction("Check_Capt", "Home", new { ca = model.idb, pro = model.idp, pho = model.phone });
+            }
             if (model.captcha == model.captcheck) {
                 return RedirectToAction("Create", "Oders", new { br = model.idb, pro = model.idp, pho = model.phone });
             }
             else
             {
                 ViewBag.capt11 = "Ma xac thuc khong dung";
-                return RedirectToAction("Check_Capt", "Home", new { c = model.captcha, ca = model.idb, pro = model.idp, pho = model.phone });
+                return RedirectToAction("Check_Capt", "Home", new {ca = model.idb, pro = model.idp, pho = model.phone });
             }
         }
     }
