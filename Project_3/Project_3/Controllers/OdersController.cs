@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project_3.Models;
+using System.Configuration;
 
 namespace Project_3.Controllers
 {
@@ -59,12 +60,16 @@ namespace Project_3.Controllers
         public ActionResult Create([Bind(Include = "Id,Phone_number,Id_Brand,Id_Product,Price,Card_Id,Create_At")] Oder oder)
         {
             oder.Create_At = DateTime.Now;
+            oder.Card_Id = 12345678;
             if (ModelState.IsValid)
             {
                 db.Oders.Add(oder);
                 db.SaveChanges();
-
-                return RedirectToAction("Index", "Oders", new { p = oder.Id, d = oder.Create_At});
+                HttpCookie cookie = new HttpCookie("Id_oder");
+                cookie.Values["id_oder"] = "tt";
+                cookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(cookie);
+                return RedirectToAction("Payment", "Oders", new { p = oder.Id});
             }
 
             return RedirectToAction("Create", "Oders", new { br = oder.Id_Brand, pro = oder.Id_Product, pho = oder.Phone_number }) ;
@@ -241,6 +246,50 @@ namespace Project_3.Controllers
 
             return View();
         }
-    }
 
-} 
+        public ActionResult Payment(int? p)
+        {
+            var bill = db.Oders.Where(b => b.Id == p).FirstOrDefault();
+
+            string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl"];
+            string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"];
+            string vnp_TmnCode = ConfigurationManager.AppSettings["vnp_TmnCode"];
+            string vnp_HashSecret = ConfigurationManager.AppSettings["vnp_HashSecret"];
+
+            OrderInfo order = new OrderInfo();
+
+            order.OrderId = (long)bill.Id; // Giả lập mã giao dịch hệ thống merchant gửi sang VNPAY
+            order.Amount = bill.Price ; // Giả lập số tiền thanh toán hệ thống merchant gửi sang VNPAY 100,000 VND
+            order.Status = "0"; //0: Trạng thái thanh toán "chờ thanh toán" hoặc "Pending"
+            order.OrderDesc = "ok";
+            order.CreatedDate = DateTime.Now;
+
+            //Build URL for VNPAY
+            VnPayLibrary pay = new VnPayLibrary();
+
+            pay.AddRequestData("vnp_Version", VnPayLibrary.VERSION); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
+            pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
+            pay.AddRequestData("vnp_TmnCode", vnp_TmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
+            pay.AddRequestData("vnp_Amount", (bill.Price*100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
+            pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
+            pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
+            pay.AddRequestData("vnp_IpAddr", Util.GetIpAddress()); //Địa chỉ IP của khách hàng thực hiện giao dịch
+            pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
+            pay.AddRequestData("vnp_OrderInfo", "Thanh toán đơn hàng"); //Thông tin mô tả nội dung thanh toán
+            pay.AddRequestData("vnp_OrderType", "Nạp tiền điện thoại"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
+            pay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
+            pay.AddRequestData("vnp_TxnRef", bill.Id.ToString()); //mã hóa đơn
+
+            string paymentUrl = pay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+
+            return Redirect(paymentUrl);
+        }
+
+        public ActionResult PaymentConfirm(string vnp_TxnRef)
+        {
+            ViewBag.Message = vnp_TxnRef;
+            return View();
+        }
+    }
+}

@@ -42,7 +42,7 @@ namespace Project_3.Controllers
                 return View();
             }
             ViewBag.capt11 = "Không gửi được phản hồi";
-         return View();
+            return View();
         }
 
         public string RandomDigits(int length)
@@ -54,7 +54,7 @@ namespace Project_3.Controllers
             return s;
         }
 
-        public ActionResult Sendmail(int? idb,int? idp)
+        public ActionResult Sendmail(int? idb, int? idp)
         {
             Email model = new Email();
             model.idb = (int)idb;
@@ -64,14 +64,14 @@ namespace Project_3.Controllers
         [HttpPost]
         public ActionResult Sendmail(Email model)
         {
-            
+
             var capt = RandomDigits(10);
             using (MailMessage mm = new MailMessage(model.email, model.to))
             {
                 mm.Subject = model.subject;
                 mm.Body = capt;
                 mm.IsBodyHtml = false;
-               
+
                 using (SmtpClient smtp = new SmtpClient())
                 {
                     smtp.Host = "smtp.gmail.com";
@@ -88,10 +88,11 @@ namespace Project_3.Controllers
             cookie.Values["captcha"] = capt;
             cookie.Expires = DateTime.Now.AddDays(1);
             Response.Cookies.Add(cookie);
-            return RedirectToAction("Check_Capt", "Home", new {ca = model.idb, pro = model.idp , pho = model.phone });
+            return RedirectToAction("Check_Capt", "Home", new { ca = model.idb, pro = model.idp, pho = model.phone });
         }
 
-        public ActionResult Check_Capt( int? ca , int? pro , int ?pho) {
+        public ActionResult Check_Capt(int? ca, int? pro, int? pho)
+        {
 
             HttpCookie cookie = Request.Cookies["Captcha"];
 
@@ -103,21 +104,31 @@ namespace Project_3.Controllers
             ViewBag.capt2 = ca;
             ViewBag.capt3 = pro;
             ViewBag.capt4 = pho;
+            ViewBag.capt5 = null;
             return View();
         }
         [HttpPost]
         public ActionResult Check_Capt(Captch model)
         {
-            if (model.captcheck == null) {
-                return RedirectToAction("Check_Capt", "Home", new { ca = model.idb, pro = model.idp, pho = model.phone });
-            }
-            if (model.captcha == model.captcheck) {
-                return RedirectToAction("Create", "Oders", new { br = model.idb, pro = model.idp, pho = model.phone });
-            }
-            else
+            HttpCookie cookie = Request.Cookies["Captcha"];
+            if ((cookie.Values["captcha"] != null) && (cookie.Values["captcha"] != ""))
             {
-                ViewBag.capt11 = "Ma xac thuc khong dung";
-                return RedirectToAction("Check_Capt", "Home", new {ca = model.idb, pro = model.idp, pho = model.phone });
+                model.captcha = cookie.Values["captcha"];
+            }
+            {
+                if (model.captcheck == null)
+                {
+                    return RedirectToAction("Check_Capt", "Home", new { ca = model.idb, pro = model.idp, pho = model.phone });
+                }
+                if (model.captcheck == model.captcha)
+                {
+                    return RedirectToAction("Create", "Oders", new { br = model.idb, pro = model.idp, pho = model.phone });
+                }
+                else
+                {
+                    ViewBag.capt11 = "Ma xac thuc khong dung";
+                    return RedirectToAction("Check_Capt", "Home", new { ca = model.idb, pro = model.idp, pho = model.phone });
+                }
             }
         }
     }

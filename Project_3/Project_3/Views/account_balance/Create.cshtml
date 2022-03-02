@@ -22,19 +22,7 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6" style="margin-top:2%;text-align:center;font-size:18px">
-                    <p style="margin-top:1%;text-align:left;font-size:22px;color:black"><b>Ngân hàng thanh toán : </b></p>
-                    <select class="form-control" id="sel1" name="sellist1" style="width:70%">
-                        <option>--- Chọn ngân hàng ---</option>
-                        @foreach (var item in Bank_)
-                        {
-                            <option>@item.Name_bank</option>
-                        }
-                    </select>
-                    <p style="margin-top:2%;text-align:left;font-size:22px;color:black">
-                        <b>Số tài khoản : </b>
-                       
-                    </p>
-                    <input type="number" style="width:70%" class="form-control" />
+                   
                     <p style="margin-top:2%;text-align:left;font-size:22px;color:black; width:70%">
                         <b>Số tiền : </b>
                         @Html.EditorFor(model => model.Money, new { htmlAttributes = new { @class = "form-control" } })

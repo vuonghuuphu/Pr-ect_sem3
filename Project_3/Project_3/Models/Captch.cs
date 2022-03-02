@@ -10,7 +10,7 @@ namespace Project_3.Models
         public int phone { set; get; }
         public int idb { set; get; }
         public int idp { set; get; }
-        public int captcha { set; get; }
-        public int captcheck { set; get; }
+        public string captcha { set; get; }
+        public string captcheck { set; get; }
     }
 }

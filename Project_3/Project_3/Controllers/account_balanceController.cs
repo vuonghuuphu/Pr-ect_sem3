@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Project_3.Models;
+using System.Configuration;
 
 namespace Project_3.Controllers
 {
@@ -64,17 +65,21 @@ namespace Project_3.Controllers
                 if (datapay == null) {
                 db.account_Balances.Add(account_balance);
                 db.SaveChanges();
-                    return RedirectToAction("AccountManagement", "AuthUser");
+                    return RedirectToAction("Pay_acount", "account_balance", new { id = account_balance.Id, mon = account_balance.Money });
                 }
                 else
                 {
+                    var mon = account_balance.Money;
                     account_balance.Money = account_balance.Money + datapay.Money;
                     account_balance.Id = datapay.Id;
                     account_balance.Id_uer = datapay.Id_uer;
                     db.account_Balances.Remove(datapay);
                     db.account_Balances.Add(account_balance);
                     db.SaveChanges();
-                    return RedirectToAction("AccountManagement", "AuthUser");
+
+
+
+                    return RedirectToAction("Pay_acount", "account_balance", new { id = account_balance.Id,mon = mon});
                 }
                 
             }
@@ -102,6 +107,36 @@ namespace Project_3.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult Pay_acount(int? id , int? mon) {
+
+            var account_balance = db.account_Balances.Where(b => b.Id == id).FirstOrDefault();
+
+            string vnp_Returnurl = ConfigurationManager.AppSettings["vnp_Returnurl1"];
+            string vnp_Url = ConfigurationManager.AppSettings["vnp_Url"];
+            string vnp_TmnCode = ConfigurationManager.AppSettings["vnp_TmnCode"];
+            string vnp_HashSecret = ConfigurationManager.AppSettings["vnp_HashSecret"];
+
+            //Build URL for VNPAY
+            VnPayLibrary pay = new VnPayLibrary();
+
+            pay.AddRequestData("vnp_Version", VnPayLibrary.VERSION); //Phiên bản api mà merchant kết nối. Phiên bản hiện tại là 2.0.0
+            pay.AddRequestData("vnp_Command", "pay"); //Mã API sử dụng, mã cho giao dịch thanh toán là 'pay'
+            pay.AddRequestData("vnp_TmnCode", vnp_TmnCode); //Mã website của merchant trên hệ thống của VNPAY (khi đăng ký tài khoản sẽ có trong mail VNPAY gửi về)
+            pay.AddRequestData("vnp_Amount", (mon * 100).ToString()); //số tiền cần thanh toán, công thức: số tiền * 100 - ví dụ 10.000 (mười nghìn đồng) --> 1000000
+            pay.AddRequestData("vnp_BankCode", ""); //Mã Ngân hàng thanh toán (tham khảo: https://sandbox.vnpayment.vn/apis/danh-sach-ngan-hang/), có thể để trống, người dùng có thể chọn trên cổng thanh toán VNPAY
+            pay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss")); //ngày thanh toán theo định dạng yyyyMMddHHmmss
+            pay.AddRequestData("vnp_CurrCode", "VND"); //Đơn vị tiền tệ sử dụng thanh toán. Hiện tại chỉ hỗ trợ VND
+            pay.AddRequestData("vnp_IpAddr", Util.GetIpAddress()); //Địa chỉ IP của khách hàng thực hiện giao dịch
+            pay.AddRequestData("vnp_Locale", "vn"); //Ngôn ngữ giao diện hiển thị - Tiếng Việt (vn), Tiếng Anh (en)
+            pay.AddRequestData("vnp_OrderInfo", "Nạp tiền vào ví tài khoản"); //Thông tin mô tả nội dung thanh toán
+            pay.AddRequestData("vnp_OrderType", "Naptienvaovi"); //topup: Nạp tiền điện thoại - billpayment: Thanh toán hóa đơn - fashion: Thời trang - other: Thanh toán trực tuyến
+            pay.AddRequestData("vnp_ReturnUrl", vnp_Returnurl); //URL thông báo kết quả giao dịch khi Khách hàng kết thúc thanh toán
+            pay.AddRequestData("vnp_TxnRef", account_balance.Id.ToString()); //mã hóa đơn
+
+            string paymentUrl = pay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
+
+            return Redirect(paymentUrl);
         }
     }
 }
