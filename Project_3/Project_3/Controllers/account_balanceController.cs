@@ -63,8 +63,8 @@ namespace Project_3.Controllers
                 var id = data.Id;
                 var datapay = db.account_Balances.Where(s => s.Id_uer == id).FirstOrDefault();
                 if (datapay == null) {
-                db.account_Balances.Add(account_balance);
-                db.SaveChanges();
+                    db.account_Balances.Add(account_balance);
+                    db.SaveChanges();
                     return RedirectToAction("Pay_acount", "account_balance", new { id = account_balance.Id, mon = account_balance.Money });
                 }
                 else
@@ -79,15 +79,15 @@ namespace Project_3.Controllers
 
 
 
-                    return RedirectToAction("Pay_acount", "account_balance", new { id = account_balance.Id,mon = mon});
+                    return RedirectToAction("Pay_acount", "account_balance", new { id = account_balance.Id, mon = mon });
                 }
-                
+
             }
 
             return View();
         }
 
-      
+
 
         // POST: account_balance/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -108,7 +108,7 @@ namespace Project_3.Controllers
             }
             base.Dispose(disposing);
         }
-        public ActionResult Pay_acount(int? id , int? mon) {
+        public ActionResult Pay_acount(int? id, int? mon) {
 
             var account_balance = db.account_Balances.Where(b => b.Id == id).FirstOrDefault();
 
@@ -137,6 +137,38 @@ namespace Project_3.Controllers
             string paymentUrl = pay.CreateRequestUrl(vnp_Url, vnp_HashSecret);
 
             return Redirect(paymentUrl);
+        }
+
+        public ActionResult Pay_acount_failed(int vnp_Amount, int vnp_TransactionNo, int vnp_TransactionStatus)
+        {
+            if (vnp_TransactionNo == 0 || vnp_TransactionStatus == 02)
+            {
+                HttpCookie cookie = Request.Cookies["Email"];
+                var email = cookie.Values["emailuser"];
+                var data = db.Users.Where(s => s.Email == email).FirstOrDefault();
+                var id = data.Id;
+                var datapay = db.account_Balances.Where(s => s.Id_uer == id).FirstOrDefault();
+                var c = vnp_Amount / 100;
+                account_balance o = new account_balance();
+                o.Id = datapay.Id;
+                o.Id_uer = datapay.Id_uer;
+                o.Money = datapay.Money - c;
+                db.account_Balances.Remove(datapay);
+                db.SaveChanges();
+                var d = db.account_Balances.Find(datapay.Id_uer);
+                if (d == null)
+                {
+                db.account_Balances.Add(o);
+                db.SaveChanges();
+                }
+                ViewBag.Message = "Nạp tiền vào ví thất bại";
+                return View();
+            }
+            else
+            {
+
+                return RedirectToAction("AccountManagement", "AuthUser");
+            }
         }
     }
 }

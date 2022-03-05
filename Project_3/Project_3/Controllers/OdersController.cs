@@ -66,7 +66,7 @@ namespace Project_3.Controllers
                 db.Oders.Add(oder);
                 db.SaveChanges();
                 HttpCookie cookie = new HttpCookie("Id_oder");
-                cookie.Values["id_oder"] = "tt";
+                cookie.Values["id_oder"] = oder.Id.ToString();
                 cookie.Expires = DateTime.Now.AddDays(1);
                 Response.Cookies.Add(cookie);
                 return RedirectToAction("Payment", "Oders", new { p = oder.Id});
@@ -96,13 +96,13 @@ namespace Project_3.Controllers
             return RedirectToAction("Login", "AuthUser");
             }
             var email = cookie.Values["emailuser"];
-            if(email == "")
+            if (email == "")
             {
                 return RedirectToAction("Login", "AuthUser");
             }
 
-            else { 
-            if (br == null)
+            else {
+                if (br == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
@@ -111,6 +111,10 @@ namespace Project_3.Controllers
                 var datapay = db.account_Balances.Where(s => s.Id_uer == id).FirstOrDefault();
                 var brand = db.brands.Where(p => p.Id == br).ToList();
                 var product = db.products.Where(p => p.Id == pro).ToList();
+                if (datapay == null) {
+                    return RedirectToAction("Create", "account_balance");
+                }
+                else { 
                 if (datapay.Money < product.First().Price) {
                     return RedirectToAction("AccountManagement", "AuthUser");
                 }
@@ -126,6 +130,7 @@ namespace Project_3.Controllers
                     ViewBag.ListBrand = brand.First().Name;
                     ViewBag.ListBrandid = brand.First().Id;
                     ViewBag.ListPrice = product.First().Price;
+                }
                 }
                 Oder model = new Oder();
                 model.Id_Brand = (int)br;
@@ -286,10 +291,35 @@ namespace Project_3.Controllers
             return Redirect(paymentUrl);
         }
 
-        public ActionResult PaymentConfirm(string vnp_TxnRef)
+        public ActionResult PaymentConfirm(string vnp_TxnRef,int vnp_TransactionNo,int vnp_TransactionStatus)
         {
-            ViewBag.Message = vnp_TxnRef;
+                var random = new Random();
+                string s = string.Empty;
+                for (int i = 0; i < 13; i++)
+                s = String.Concat(s, random.Next(10).ToString());
+
+            if (vnp_TransactionNo == 0 || vnp_TransactionStatus == 02) {
+                return RedirectToAction("pay_failed", "Oders", new { id = vnp_TxnRef});
+            }
+            ViewBag.Message = s;
+            ViewBag.Message1 = vnp_TxnRef;
             return View();
+        }
+
+        public ActionResult pay_failed(string id)
+        {
+            var bill = db.Oders.Where(b => b.Id.ToString() == id).FirstOrDefault();
+            if (bill != null)
+            {
+                db.Oders.Remove(bill);
+                db.SaveChanges();
+                ViewBag.Message = "Thanh toán thất bại";
+                return View();
+            }
+            else {
+                ViewBag.Message = "Thanh toán thất bại";
+                return View();
+            }
         }
     }
 }

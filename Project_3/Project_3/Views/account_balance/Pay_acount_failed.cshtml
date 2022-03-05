@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "PaymentConfirm";
+    ViewBag.Title = "Pay_acount_failed";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <section class="page-top-section set-bg" data-setbg="../../Content/Temp/img/page-top-bg/4.jpg">
@@ -11,30 +11,20 @@
     </div>
 </section>
 <div style="text-align: center; margin-top: 5%;">
-    <img src="~/Img/accept.png" style="width:10%"/>
+    <img src="~/Img/error.png" style="width:10%" />
 </div>
-
-<div style="margin-top: 1%; text-align: center; margin-bottom: 5%">
-    <h2>Thanh toán thành công đơn hàng </h2>
-    
-    <h4 style="margin-top:2%">Mã thẻ:<b style="color:forestgreen;margin-left:5px">@ViewBag.Message</b></h4>
+<div style="margin-top:2%;text-align:center;margin-bottom:2%">
+    <h2 style="color:red">@ViewBag.Message</h2>
     <div class="row" style="margin-top:5%">
         <div class="col-md-3"></div>
-        <div class="col-md-3">
+        <div class="col-md-6">
             <a href="@Url.Action("Index", "Home")">
                 <p style="text-align: center; background-color: aquamarine; font-size: 20px; font-weight: bold; color: black">Xác nhận</p>
             </a>
         </div>
-        <div class="col-md-3">
-            <a href="@Url.Action("Bill", "Oders", new {p = ViewBag.Message1})">
-                <p style="text-align: center; background-color: lavenderblush; font-size: 20px; font-weight: bold; color: black">In hóa đơn</p>
-            </a>
-        </div>
+
         <div class="col-md-3"></div>
     </div>
 
 
-</div>
-
-<div>
 </div>

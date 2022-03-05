@@ -2491,6 +2491,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Img\accept.png" />
+    <Content Include="Img\captcha.png" />
+    <Content Include="Img\credit-card.png" />
+    <Content Include="Img\error.png" />
+    <Content Include="Img\qr-code.png" />
+    <Content Include="Img\smartphone.png" />
+    <Content Include="Img\user.png" />
+    <Content Include="Img\visa.png" />
+    <Content Include="Img\wallet.png" />
     <Content Include="Scripts\no_verification.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -2831,6 +2840,8 @@
     <Content Include="Views\Oders\oder_admin.cshtml" />
     <Content Include="Views\Oders\Billvnpay.cshtml" />
     <Content Include="Views\Oders\PaymentConfirm.cshtml" />
+    <Content Include="Views\Oders\pay_failed.cshtml" />
+    <Content Include="Views\account_balance\Pay_acount_failed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

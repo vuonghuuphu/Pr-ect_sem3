@@ -87,7 +87,12 @@ namespace Project_3.Controllers
         public ActionResult AccountManagement() {
 
             HttpCookie cookie = Request.Cookies["Email"];
-
+            if(cookie == null)
+            {
+                return RedirectToAction("Login", "AuthUser");
+            }
+            else
+            {
             if ((cookie.Values["emailuser"] != null) && (cookie.Values["emailuser"] != ""))
             {
                 var email = cookie.Values["emailuser"];
@@ -107,6 +112,7 @@ namespace Project_3.Controllers
             else
             {
                 return RedirectToAction("Login", "AuthUser");
+            }
             }
         }
 

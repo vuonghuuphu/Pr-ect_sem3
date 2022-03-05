@@ -31,7 +31,8 @@ namespace Project_3.Controllers
             {
                 ViewBag.ListCategory = categori;
                 ViewBag.ListBrand = brand;
-                ViewBag.ListProduct = db.products.ToList();
+                ViewBag.idcate = idcategories;
+                ViewBag.ListProduct = db.products.Where(p => p.Id_categories == p.Id_categories).ToList();
             }
 
 

@@ -11,27 +11,27 @@
         </nav>
     </div>
 </section>
-<h2 style="margin-top:4%;text-align:center;margin-bottom:4%">Chọn loại dịch vụ cần nạp</h2>
+<h2 style="margin-top:2%;text-align:center;margin-bottom:2%">Chọn loại dịch vụ cần nạp</h2>
 
 
-<div class="row" style="margin-bottom:10%">
+<div class="row" style="margin-bottom:3%">
     <div class="col-md-2">
     </div>
     <div class="col-md-8">
         <div class="row">
             @foreach (var item in Model)
             {
-            <div class="col-md-4" style="text-align:center;margin-bottom:2%;">
-                <a href="@Url.Action("Index", "Brands", new { idcate = item.Id })">
-                    <div style="text-align:center;border:solid 1px black;border-radius:25px">
-                        <img src="@item.Img" width=100% style="border-start-start-radius: 25px; border-start-end-radius: 25px" />
-                        <div style="padding-top: 1%; padding-bottom: 1%; background-color: black; color: white; border-end-start-radius: 25px; border-end-end-radius: 25px;font-size:20px;font-weight:bold">
-                            @item.Name
+                <div class="col-md-4" style="text-align:center;margin-bottom:2%;">
+                    <a href="@Url.Action("Index", "Brands", new { idcate = item.Id })">
+                        <div style="text-align:center;border:solid 1px black;border-radius:25px">
+                            <img src="@item.Img" style="border-start-start-radius: 25px; border-start-end-radius: 25px; width:100%;height:300px " />
+                            <div style="padding-top: 1%; padding-bottom: 1%; background-color: black; color: white; border-end-start-radius: 25px; border-end-end-radius: 25px;font-size:20px;font-weight:bold">
+                                @item.Name
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-                
+                    </a>
+                </div>
+
             }
         </div>
         <div class="col-md-2">
@@ -39,6 +39,18 @@
     </div>
 </div>
 
+<section class="score-section text-white set-bg" data-setbg="../../Content/Temp/img/score-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-8">
+                <h2>Nạp tiền bằng ví</h2>
+                <h4>Sử dụng ví của chúng tôi để nạp tiền một cách nhanh chóng</h4>
+                <a href="@Url.Action("AccountManagement", "AuthUser")" class="site-btn sb-big">Nạp vào từ ví</a>
+            </div>
+        </div>
+        <img src="../../Content/Temp/img/hand.png" alt="" class="hand-img">
+    </div>
+</section>
 
 
 

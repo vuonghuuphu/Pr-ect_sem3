@@ -13,6 +13,21 @@
 @{
     IEnumerable<Brand> Brandlist = ViewBag.ListBrand as IEnumerable<Brand>;
 }
+<style>
+    #tt {
+        background-color:antiquewhite;
+    }
+    #tv {
+        background-color: antiquewhite;
+    }
+
+    #tt:hover {
+        background-color:aquamarine;
+    }
+    #tv:hover {
+        background-color: greenyellow;
+    }
+</style>
 <section class="page-top-section set-bg" data-setbg="../../Content/Temp/img/page-top-bg/4.jpg">
     <div class="container">
         <h2>Nạp tiền</h2>
@@ -20,66 +35,90 @@
         </nav>
     </div>
 </section>
-    <div class="row" style="margin-top:1%;text-align:center;margin-bottom:10%">
+    <div class="row" style="text-align:center;margin-top:2px;padding-bottom:5%">
         <div class="col-md-3">
-            <div style="background-color: black; width: 100%; font-weight: bold; color: white; font-size: 20px;padding:10px;margin-bottom:4%">
+            <div style="background-color: #f43f00; width: 100%; font-weight: bold; color: white; font-size: 20px; padding: 10px;">
                Danh mục dịch vụ
             </div>
-            @foreach (var item in listcate)
-            {
-                <a href="">
+            <div style="background-color: #f2f2f2; padding-top: 3%">
+                @foreach (var item in listcate)
+                {
+                    if (ViewBag.idcate == item.Id) {
+                <a href="@Url.Action("Index", "Brands", new { idcate = item.Id })">
                     <div style="width:100%">
-                        <p style="padding-left:4%;font-size:20px;font-weight:bold;color:black;width:100%;padding-bottom:2%;border-bottom:solid 1px black">@item.Name</p>
+                        <p style="font-size: 20px; font-weight: bold; color: #f43f00; width: 100%; padding-bottom: 3%; border-bottom: solid 0.5px black">@item.Name</p>
                     </div>
                 </a>
-            }
+                }
+                else { 
+                    <a href="@Url.Action("Index", "Brands", new { idcate = item.Id })">
+                        <div style="width:100%">
+                            <p style="font-size:20px;font-weight:bold;color:black;width:100%;padding-bottom:3%;border-bottom:solid 0.5px black">@item.Name</p>
+                        </div>
+                    </a>
+                    }
+                }
+            </div>
         </div>
         <div class="col-md-9">
-           
-            <table class="table">
+            <table class="table" style="background-color: #f2f2f2">
                 <tr>
-                    <th>
+                    <th style="font-size: 20px; font-weight: bold; color: black;">
                         Tên dịch vụ
                     </th>
-                    <th>
+                    <th style="font-size: 20px; font-weight: bold; color: black;">
                         Giá bán
                     </th>
-                    <th></th>
+                    <th style="font-size: 20px; background-color: forestgreen; font-weight: bold; color: white;" colspan="2">
+                        Hình thức thanh toán
+                    </th>
                 </tr>
 
                 @foreach (var item in listpro)
                 {
-                    
+                    if(item.Id_categories == ViewBag.idcate) {
 
-            <tr>
+                    <tr>
+                        <td style="font-size:20px;text-align:left">
+                            @item.Name
+                        </td>
 
-                <td style="font-size:20px">
-                    @item.Name
-                </td>
+                        <td style="font-size: 20px;">
+                            @item.Price vnđ
+                        </td>
 
-                <td style="font-size:20px">
-                    @item.Price vnđ
-                </td>
+                        <td id="tt" >
+                            <div style="font-size:20px;">
+                                <a style="color:black;font-weight:bold" href="@Url.Action("Sendmail", "Home", new {idb = Brandlist.First().Id,idp = item.Id})">Nạp trưc tiếp </a>
+                            </div>
 
-                <td>
-                    <div style="font-size:20px">
-                        <a href="@Url.Action("Sendmail", "Home", new {idb = Brandlist.First().Id,idp = item.Id})">Nạp trưc tiếp </a>
-                    </div>
+                        </td>
+                        <td  id="tv">
+                            <div style="font-size:20px">
+                                <a style="color:black;font-weight:bold" href="@Url.Action("Oder_account", "Oders", new {br = Brandlist.First().Id, pro = item.Id})">Nạp từ ví </a>
+                            </div>
 
-                </td>
-                <td>
-                    <div style="font-size:20px">
-                        <a href="@Url.Action("Oder_account", "Oders", new {br = Brandlist.First().Id, pro = item.Id})">Nạp từ ví </a>
-                    </div>
+                        </td>
 
-                </td>
-
-            </tr>
+                    </tr> 
+                    }
                 }
             </table>
 
-            
+
         </div>
     </div>
 
 
+<section class="score-section text-white set-bg" data-setbg="../../Content/Temp/img/score-bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-8">
+                <h2>Nạp tiền bằng ví</h2>
+                <h4>Sử dụng ví của chúng tôi để nạp tiền một cách nhanh chóng</h4>
+                <a href="@Url.Action("AccountManagement", "AuthUser")" class="site-btn sb-big">Nạp vào từ ví</a>
+            </div>
+        </div>
+        <img src="../../Content/Temp/img/hand.png" alt="" class="hand-img">
+    </div>
+</section>
