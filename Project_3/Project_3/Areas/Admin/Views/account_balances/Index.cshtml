@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Project_3.Models.account_balance>
+
+@{ ViewBag.Title = "Index"; }
+
+
+<style>
+    #f1:hover a b {
+        font-size: 22px;
+        color: cornflowerblue;
+    }
+
+    #f2:hover a b {
+        font-size: 22px;
+        color: sandybrown;
+    }
+
+    #f3:hover a b {
+        font-size: 22px;
+        color: red;
+    }
+</style>
+<div style="padding:2%">
+    <p style="width:100%">
+        <img src="~/Img/wallet.png" style="width:5%" />
+        <b style="font-weight:bold;font-size:30px;padding-left:1%">Bảng ví tài khoản</b>
+    </p>
+</div>
+<div class="row" style="padding-top:1%">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <table class="table" style="text-align: center; background-color: white; width: 100%; margin-top: 2%;">
+            <tr>
+                <th style="background-color: #f43f00;color:white;border-top: solid 1px #f43f00">
+                    <h4>id ví</h4>
+                </th>
+                <th style="border-top: 2px solid #f43f00">
+                    <h4>id tài khoản</h4>
+                </th>
+                <th style="border-top: 2px solid #f43f00">
+                    <h4>Số tiền</h4>
+                </th>
+                <th colspan="3" style="border-top: 2px solid #f43f00"></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+<tr>
+    <td style="width: 100px; background-color: #f43f00; padding-top: 3%">
+        <h5><b style="color:white">@item.Id</b></h5>
+    </td>
+    <td style="padding-top:3%">
+        <h5><b>@Html.DisplayFor(modelItem => item.Id_uer)</b></h5>
+    </td>
+    <td style="padding-top:3%">
+        <h5><b>@Html.DisplayFor(modelItem => item.Money)</b></h5>
+    </td>
+    <td id="f1" style="padding-top: 3%;width:10%">
+        <a style="color: black; font-size: 20px;" href="@Url.Action("Details", "account_balances", new { id = item.Id })"><b>Chi tiết</b></a>
+    </td>
+    <td id="f2" style="padding-top:3%;width:10%">
+        <a style="color: black; font-size: 20px" href="@Url.Action("Edit", "account_balances", new { id = item.Id })"><b>Sửa</b></a>
+    </td>
+    <td id="f3" style="padding-top:3%;width:10%">
+        <a style="color: black; font-size: 20px" href="@Url.Action("Delete", "account_balances", new { id = item.Id })"><b>Xóa</b></a>
+    </td>
+</tr>
+}
+
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+
+</table>

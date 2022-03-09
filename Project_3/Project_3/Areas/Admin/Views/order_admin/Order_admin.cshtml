@@ -1,0 +1,89 @@
+﻿@model Project_3.Models.Day
+@using Project_3.Models;
+
+@{ ViewBag.Title = "oder_admin";
+                Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml"; }
+
+@{ IEnumerable<Oder> Billlist = ViewBag.ListBill as IEnumerable<Oder>; }
+
+<style type="text/css">
+    #sco {
+        width: 100%;
+        height: 750px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: 0.5px dashed black;
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div style="padding:2%">
+            <p style="width:100%">
+                <img src="~/Img/cargo.png" style="width:20%" />
+                <b style="font-weight:bold;font-size:30px;padding-left:1%">Hóa đơn</b>
+            </p>
+        </div>
+        <div style="margin-left: 2%; background-color: antiquewhite; height: 750px">
+            <div style="padding:10%">
+                <h2 style="margin-bottom:3%;margin-top:5% ;text-align:center">Tìm kiếm hóa đơn</h2>
+
+                @using (Html.BeginForm("Order_admin", "order_admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+    <p>
+        @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập ngày" } })
+    </p>
+                    <p>
+                        @Html.DropDownListFor(model => model.Month,
+                                                         new List<SelectListItem> {
+                                      new SelectListItem { Value = "" , Text = "Tất cả" },
+                                      new SelectListItem { Value = "Jan" , Text = "Tháng 1 " },
+                                      new SelectListItem { Value = "Feb" , Text = "Tháng 2 " },
+                                      new SelectListItem { Value = "Mar" , Text = "Tháng 3 " },
+                                      new SelectListItem { Value = "Apr" , Text = "Tháng 4 " },
+                                      new SelectListItem { Value = "May" , Text = "Tháng 5 " },
+                                      new SelectListItem { Value = "Jun" , Text = "Tháng 6 " },
+                                      new SelectListItem { Value = "Jul" , Text = "Tháng 7 " },
+                                      new SelectListItem { Value = "Aug" , Text = "Tháng 8 " },
+                                      new SelectListItem { Value = "Sep" , Text = "Tháng 9 " },
+                                      new SelectListItem { Value = "Oct" , Text = "Tháng 10 " },
+                                      new SelectListItem { Value = "Nov" , Text = "Tháng 11 " },
+                                      new SelectListItem { Value = "Dec" , Text = "Tháng 12 " },
+                           },
+                                                          htmlAttributes: new { @class = "form-control" })
+                    </p>
+                                    <p>
+                                        @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control", placeholder = "Nhập năm" } })
+                                    </p>
+
+                                                    <input type="submit" value="Tìm kiếm" class="btn btn-default" style="font-weight:bold;text-align:center;font-size:20px;color:white;background-color:green;padding:5px;border:solid 0px black;width:100%;margin-top:2%" />}
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-md-8">
+        <h2 style="margin-bottom:3%;margin-top:6%;text-align:center"><b> Bảng Hóa đơn</b></h2>
+        <div id="sco" style="padding:10px">
+            @foreach (var item in Billlist)
+            {
+
+        <div style="width:100%;border: solid 0.5px grey;margin-bottom:1%;background-color:white">
+            <div class="row">
+                <div class="col-md-6">
+                    <p style="padding-left:1%;font-size:16px;color:black;width:100%">Mã đơn hàng :<b>@item.Id</b></p>
+                </div>
+                <div class="col-md-4">
+                    <p style="padding-left:1%;font-size:16px;color:black;width:100%">Ngày tạo :<b>@item.Create_At</b></p>
+                </div>
+                <div class="col-md-2">
+                    <div style="margin-top:7%;margin-bottom:7%">
+                        <a  href="@Url.Action("Details", "Oder", new { id = item.Id })" style="color: white; padding: 7px; background-color: #f43f00; font-weight:bold"> Xem thêm</a>
+                    </div>
+                </div>
+            </div>
+        </div>}
+        </div>
+    </div>
+</div>

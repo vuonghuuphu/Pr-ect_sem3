@@ -1,0 +1,105 @@
+﻿<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            
+            <div class="info" style="text-align:center;width:100%">
+                <img src="~/Content/Temp/img/logo.png" style="width:90%" />
+                <a href="#" class="d-block" style="padding-top:5px"><h4>Admin Page</h4></a>
+            </div>
+        </div>
+
+        <!-- SidebarSearch Form -->
+        <div class="form-inline">
+            <div class="input-group" data-widget="sidebar-search">
+                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+                <div class="input-group-append">
+                    <button class="btn btn-sidebar">
+                        <i class="fas fa-search fa-fw"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Home_admin")" class="nav-link">
+                        <i class="nav-icon fas fa-chart-line"></i>
+                        <p>
+                            Thống kê
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/Admin/order_admin/order_admin" class="nav-link">
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                        <p>
+                            Hóa Đơn
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/Admin/Categorie/Index" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Danh mục
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/Admin/Product/Index" class="nav-link">
+                        <i class="nav-icon fas fa-box"></i>
+                        <p>
+                            Dịch Vụ
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/Admin/Brand/Index" class="nav-link">
+                        <i class="nav-icon fas fa-wifi"></i>
+                        <p>
+                            Nhà Mạng
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/Admin/account_balances/Index" class="nav-link">
+                        <i class="nav-icon fas fa-wallet"></i>
+                        <p>
+                            Ví Tiền
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="~/Admin/User/Index" class="nav-link">
+                        <i class="nav-icon fas fa-user-alt"></i>
+                        <p>
+                            Tài Khoản
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "feedback_admin")" class="nav-link">
+                        <i class="nav-icon fas fa-comment-alt"></i>
+                        <p>
+                            Phản hồi
+                        </p>
+                    </a>
+                </li>
+
+
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

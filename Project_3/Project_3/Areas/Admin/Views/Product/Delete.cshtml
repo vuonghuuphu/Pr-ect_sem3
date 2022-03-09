@@ -1,0 +1,51 @@
+﻿@model Project_3.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div style="width:100%;text-align:center">
+            <img src="~/Img/warning.png" style="width:10%;text-align:center" />
+            <h2>bạn có muốn xóa mục này không ?</h2>
+        </div>
+        <hr />
+        <h4>
+            <b>Tên mục:</b>
+        </h4>
+
+        <h5>
+            @Html.DisplayFor(model => model.Name)
+        </h5>
+
+        <h4>
+            <b>Mã danh mục</b>
+        </h4>
+
+        <h5>
+            @Html.DisplayFor(model => model.Id_categories)
+        </h5>
+
+        <h4>
+            <b>Giá bán</b>
+        </h4>
+
+        <h5>
+            @Html.DisplayFor(model => model.Price)
+        </h5>
+
+
+
+        @using (Html.BeginForm())
+        {
+    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input style="background-color:red;color:white;font-size:20px;font-weight:bold;width:100%" type="submit" value="Xóa" class="btn btn-default" />
+                        <p></p>
+                        <a style="background-color:forestgreen;padding:9px 43%;color:white;font-size:20px" href="@Url.Action("Index", "Product")"><b>Quay lại</b></a>
+                    </div>}
+    </div>
+    <div class="col-md-4"></div>
+</div>

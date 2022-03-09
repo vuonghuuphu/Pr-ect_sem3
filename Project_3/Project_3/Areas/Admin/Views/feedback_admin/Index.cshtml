@@ -1,0 +1,78 @@
+﻿@model IEnumerable<Project_3.Models.feedback>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    #f1:hover a b {
+        font-size: 22px;
+        color: cornflowerblue;
+    }
+
+    #f2:hover a b {
+        font-size: 22px;
+        color: sandybrown;
+    }
+
+    #f3:hover a b {
+        font-size: 22px;
+        color: red;
+    }
+</style>
+
+<div style="padding:2%">
+    <p style="width:100%">
+        <img src="~/Img/messages.png" style="width:5%" />
+        <b style="font-weight:bold;font-size:30px;padding-left:1%">Bảng phản hồi</b>
+    </p>
+</div>
+<div class="row" style="padding-top:1%">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <table class="table" style="text-align: center; background-color: white; width: 100%; margin-top: 2%;">
+            <tr>
+                <th style="background-color: #f43f00;color:white;border-top: solid 1px #f43f00">
+                    <h4>#</h4>
+                </th>
+                <th style="border-top: 2px solid #f43f00">
+                    <h4>Tên </h4>
+                </th>
+                <th style="border-top: 2px solid #f43f00">
+                    <h4>Email</h4>
+                </th>
+                <th style="border-top: 2px solid #f43f00">
+                    <h4>Tiêu đề</h4>
+                </th>
+                <th colspan="2" style="border-top: 2px solid #f43f00"></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+<tr>
+    <td style="width: 30px; background-color: #f43f00; padding-top: 3%">
+        <h5><b style="color:white">@item.id</b></h5>
+    </td>
+
+    <td style="padding-top:3%">
+        <h5><b>@Html.DisplayFor(modelItem => item.name)</b></h5>
+    </td>
+    <td style="padding-top:3%">
+        <h5><b>@Html.DisplayFor(modelItem => item.email)</b></h5>
+    </td>
+    <td style="padding-top:3% ;">
+        <h5><b>@Html.DisplayFor(modelItem => item.subject)</b></h5>
+    </td>
+    <td id="f1" style="padding-top: 3%;width:10%">
+        <a style="color: black; font-size: 20px;" href="@Url.Action("Details", "feedback_admin", new { id = item.id })"><b>Chi tiết</b></a>
+    </td>
+    <td id="f3" style="padding-top:3%;width:10%">
+        <a style="color: black; font-size: 20px" href="@Url.Action("Delete", "feedback_admin", new { id = item.id })"><b>Xóa</b></a>
+    </td>
+</tr>
+}
+
+        </table>
+    </div>
+    <div class="col-md-1"></div>
+</div>

@@ -1,0 +1,46 @@
+﻿@model Project_3.Models.User
+
+@{ ViewBag.Title = "Details"; }
+<div>
+    <div style="padding:2%">
+        <p style="width:100%">
+            <img src="~/Img/user.png" style="width:10%" />
+            <b style="font-weight:bold;font-size:30px;padding-left:1%">Chi tiết hóa đơn</b>
+        </p>
+    </div>
+    <hr />
+    <div>
+        <div class="horizontal" style="padding-left:2%">
+            <h4 style="font-weight:bold"> Mã người dùng </h4>
+            <h5>
+                @Html.DisplayFor(model => model.Id)
+            </h5>
+
+            <h4 style="font-weight:bold">
+                Tên người dùng
+            </h4>
+
+            <h5>
+                @Html.DisplayFor(model => model.FullName)
+            </h5>
+            <h4 style="font-weight:bold">
+                Email người dùng
+            </h4>
+
+            <h5>
+                @Html.DisplayFor(model => model.Email)
+            </h5>
+
+            <h4 style="font-weight:bold">
+                Mật khẩu
+            </h4>
+
+            <h5>
+                @Html.DisplayFor(model => model.Password)
+            </h5>
+        </div>
+    </div>
+</div>
+
+<hr />
+<a href="@Url.Action("Index", "User")" style="background-color:forestgreen;color:white;font-weight:bold;font-size:20px;padding:7px 20px"> Quay lại</a>

@@ -1,0 +1,42 @@
+﻿
+@model Project_3.Models.Categorie
+
+@{ ViewBag.Title = "Details"; }
+<div>
+    <div style="padding:2%">
+        <p style="width:100%">
+            <img src="~/Img/categories.png" style="width:10%" />
+            <b style="font-weight:bold;font-size:30px;padding-left:1%">Chi tiết hóa đơn</b>
+        </p>
+    </div>
+    <hr />
+    <div>
+        <div class="horizontal" style="padding-left:2%">
+            <h4 style="font-weight:bold"> Mã danh mục </h4>
+            <h5>
+                @Html.DisplayFor(model => model.Id)
+            </h5>
+
+            <h4 style="font-weight:bold">
+               Tên danh mục
+            </h4>
+
+            <h5>
+                @Html.DisplayFor(model => model.Name)
+            </h5>
+
+            <h4 style="font-weight:bold">
+                Hình ảnh
+            </h4>
+
+            <img src="@Url.Content(Model.Img)" width="300" />
+
+        </div>
+    </div>
+</div>
+
+<hr />
+<a href="@Url.Action("Index", "Categorie")" style="background-color:forestgreen;color:white;font-weight:bold;font-size:20px;padding:7px 20px"> Quay lại</a>
+
+
+

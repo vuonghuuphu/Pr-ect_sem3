@@ -1,0 +1,62 @@
+﻿@model Project_3.Models.feedback
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style type="text/css">
+    #sco {
+        width: 100%;
+        height: 550px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        border: 0.5px dashed black;
+    }
+</style>
+<div>
+    <div style="padding:2%">
+        <p style="width:100%">
+            <img src="~/Img/messages.png" style="width:10%" />
+            <b style="font-weight:bold;font-size:30px;padding-left:1%">Chi tiết phản hồi</b>
+        </p>
+    </div>
+    <hr />
+    <div>
+        <div class="horizontal" style="padding-left:2%">
+            <h4 style="font-weight:bold"> Mã phản hồi </h4>
+            <h5>
+                @Html.DisplayFor(model => model.id)
+            </h5>
+
+            <h4 style="font-weight:bold">
+                Tên khách hàng
+            </h4>
+
+            <h5>
+                @Html.DisplayFor(model => model.name)
+            </h5>
+
+            <h4 style="font-weight:bold">
+               Tiêu đề
+            </h4>
+
+            <h5>
+                @Html.DisplayFor(model => model.subject)
+            </h5>
+
+            <h4 style="font-weight:bold">
+                Nội dung 
+            </h4>
+            <div id="sco">
+                <h5>
+                    @Html.DisplayFor(model => model.content)
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+<a href="@Url.Action("Index", "feedback_admin")" style="background-color:forestgreen;color:white;font-weight:bold;font-size:20px;padding:7px 20px"> Quay lại</a>
+
+

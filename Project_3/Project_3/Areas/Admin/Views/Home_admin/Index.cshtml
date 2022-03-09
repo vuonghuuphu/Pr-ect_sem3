@@ -1,0 +1,143 @@
+﻿@using Project_3.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>@ViewBag.tk1</h3>
+
+                    <p>Danh mục</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-grid"></i>
+                </div>
+                <a href="@Url.Action("Index", "Categorie")" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>@ViewBag.tk2</h3>
+
+                    <p>Nhà mạng</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-wifi"></i>
+                </div>
+                <a href="@Url.Action("Index", "Brand")" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>@ViewBag.tk3</h3>
+
+                    <p>Tài khoản</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person-stalker"></i>
+                </div>
+                <a href="@Url.Action("Index", "User")" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>@ViewBag.tk4</h3>
+
+                    <p>Hóa đơn</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-document-text"></i>
+                </div>
+                <a href="@Url.Action("Order_admin", "order_admin")" class="small-box-footer">Xem thêm <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+    <!-- Bar chart -->
+    <div class="card card-primary card-outline">
+        <div class="card-header">
+            <h2 class="card-title">
+                Biểu đồ đơn hàng theo tháng trong năm nay
+            </h2>
+
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="bar-chart" style="height: 500px;"></div>
+        </div>s
+        <!-- /.card-body-->
+    </div>
+
+    <div>
+        <h3 style="margin-top:2%;padding-bottom:2%">Tổng doanh thu năm nay : <b style="color:forestgreen;margin-left:1%;margin-right:1%">@ViewBag.total</b>vnđ</h3>
+    </div>
+
+<!-- jQuery -->
+<script src="~/Content/adminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/Content/adminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/Content/adminLTE/dist/js/adminlte.min.js"></script>
+<!-- FLOT CHARTS -->
+<script src="~/Content/adminLTE/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="~/Content/adminLTE/plugins/flot/plugins/jquery.flot.resize.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="~/Content/adminLTE/plugins/flot/plugins/jquery.flot.pie.js"></script>
+<!-- AdminLTE for demo purposes -->
+<!-- Page specific script -->
+<script>
+    var bar_data = {
+        data: [[1,@ViewBag.o1], [2,@ViewBag.o2], [3, @ViewBag.o3], [4, @ViewBag.o4], [5, @ViewBag.o5], [6,@ViewBag.o6], [7,@ViewBag.o7], [8,@ViewBag.o8], [9,@ViewBag.o9], [10,@ViewBag.o10], [11,@ViewBag.o11], [12, @ViewBag.o12]],
+        bars: { show: true }
+    }
+    $.plot('#bar-chart', [bar_data], {
+        grid: {
+            borderWidth: 1,
+            borderColor: '#f3f3f3',
+            tickColor: '#f3f3f3'
+        },
+        series: {
+            bars: {
+                show: true, barWidth: 0.5, align: 'center',
+            },
+        },
+        colors: ['#f43f00'],
+        xaxis: {
+            ticks: [[1, 'Tháng 1'], [2, 'Tháng 2'], [3, 'Tháng 3'], [4, 'Tháng 4'], [5, 'Tháng 5'], [6, 'Tháng 6'], [7, 'Tháng 7'], [8, 'Tháng 8'], [9, 'Tháng 9'], [10, 'Tháng 10'], [11, 'Tháng 11'], [12, 'Tháng 12']]
+        }
+    })
+
+    /* END BAR CHART */
+
+ 
+    function labelFormatter(label, series) {
+        return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+            + label
+            + '<br>'
+            + Math.round(series.percent) + '%</div>'
+    }
+</script>
+
+

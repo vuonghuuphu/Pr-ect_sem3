@@ -1,0 +1,48 @@
+﻿@model Project_3.Models.Categorie
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        
+        @using (Html.BeginForm("Create", "Categorie", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        <div style="text-align:center">
+                            <img src="~/Img/categories.png" width="300" style="padding:3%"/>
+                            <h2 style="text-align:center"><b>Thêm mới vào danh mục</b></h2>
+                        </div>
+                    </div>
+                                    <div class="form-horizontal">
+                                        <hr />
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            <h5><b>Tên:</b></h5>
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        </div>
+
+                                        <div class="form-group">
+                                                <h5><b>Hình ảnh:</b></h5>
+                                                @Html.EditorFor(Model => Model.Img, new { htmlAttributes = new { @class = "form-control", @type = "file" } })
+                                        </div>
+
+                                        <div class="form-group">
+                                                <input style="width:100%;background-color:forestgreen;color:white;font-weight:bold;font-size:20px" type="submit" value="Thêm mới" class="btn btn-default" />
+
+                                        </div>
+                                         
+                                    </div>}
+        <div style="width:100%;background-color:red;text-align:center;padding:6px">
+            <a href="@Url.Action("Index", "Categorie")" style="color:white;font-size:20px;font-weight:bold">Hủy</a>
+        </div>
+    
+    </div>
+    <div class="col-md-2"></div>
+</div>
+

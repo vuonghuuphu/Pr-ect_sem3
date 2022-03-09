@@ -24,7 +24,7 @@
                 <div class="col-md-4" style="text-align:center;margin-bottom:2%;">
                     <a href="@Url.Action("Index", "Brands", new { idcate = item.Id })">
                         <div style="text-align:center;border:solid 1px black;border-radius:25px">
-                            <img src="@item.Img" style="border-start-start-radius: 25px; border-start-end-radius: 25px; width:100%;height:300px " />
+                            <img src="@Url.Content(item.Img)" style="border-start-start-radius: 25px; border-start-end-radius: 25px; width:100%;height:300px " />
                             <div style="padding-top: 1%; padding-bottom: 1%; background-color: black; color: white; border-end-start-radius: 25px; border-end-end-radius: 25px;font-size:20px;font-weight:bold">
                                 @item.Name
                             </div>

@@ -12,7 +12,7 @@
             <div style="padding-top:10%;padding-bottom:10%">
                 <div style="text-align:center">
                     <img style="margin:auto" src="~/Content/Temp/img/logo.png" alt="">
-                    <h2 style="color: white; padding-top: 5%; padding-bottom: 2%">Đăng kí tài khoản</h2>
+                    <h2 style="color: white; padding-top: 5%; padding-bottom: 2%">Đăng nhập</h2>
                 </div>
                 @using (Html.BeginForm("Login", "AuthUser", FormMethod.Post))
                 {
@@ -34,7 +34,7 @@
 
                         <div class="form-group">
                             <button style="width:100%;font-size:18px;margin-top:5%" type="submit" class="btn btn-success"><b>Đăng nhập</b></button>
-                            <a href=""><h6 style="color: white;margin-top:2%">Tôi chưa có tài khoản</h6></a>
+                            <a href="@Url.Action("Register", "AuthUser")"><h6 style="color: white;margin-top:2%">Tôi chưa có tài khoản</h6></a>
                     </div>
                 }
             </div>
